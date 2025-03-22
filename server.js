@@ -9,7 +9,7 @@ const app = express();
 app.use(cors());
 app.use(express.json());
 
-// ✅ Fetch all stocks
+// Fetch all stocks
 app.get("/stocks", async (req, res) => {
   try {
     const [rows] = await db.execute(
@@ -22,12 +22,11 @@ app.get("/stocks", async (req, res) => {
   }
 });
 
-// ✅ Fetch stocks by trade_code (with validation)
+// Fetch stocks by trade_code 
 app.get("/stocks/:trade_code", async (req, res) => {
   try {
     const tradeCode = req.params.trade_code;
 
-    // Validate trade code (allow letters & numbers)
     if (!/^[A-Za-z0-9]+$/.test(tradeCode)) {
       return res.status(400).json({ error: "Invalid trade code format." });
     }
